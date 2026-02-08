@@ -48,13 +48,13 @@
 
 {% block scripts %}
 <script>
-    var history = {{ history | tojson }};
-    var labels = history.map(function(d) { return d.Date; });
+    var histData = {{ history | tojson }};
+    var labels = histData.map(function(d) { return d.Date; });
 
     renderPredictionChart("historyChart", labels, [
         {
             label: "Close",
-            data: history.map(function(d) { return d.Close.toFixed(2); }),
+            data: histData.map(function(d) { return Math.round(d.Close * 100) / 100; }),
             borderColor: "#0d6efd",
             fill: false,
             tension: 0.2,
@@ -62,7 +62,7 @@
         },
         {
             label: "MA 5",
-            data: history.map(function(d) { return d.MA_5.toFixed(2); }),
+            data: histData.map(function(d) { return Math.round(d.MA_5 * 100) / 100; }),
             borderColor: "#ffc107",
             borderDash: [5, 5],
             fill: false,
@@ -71,7 +71,7 @@
         },
         {
             label: "MA 20",
-            data: history.map(function(d) { return d.MA_20.toFixed(2); }),
+            data: histData.map(function(d) { return Math.round(d.MA_20 * 100) / 100; }),
             borderColor: "#dc3545",
             borderDash: [5, 5],
             fill: false,

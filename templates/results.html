@@ -93,13 +93,13 @@
 {% block scripts %}
 {% if predictions|length > 1 %}
 <script>
-    var predictions = {{ predictions | tojson }};
-    var labels = predictions.map(function(p) { return p.Date; });
+    var preds = {{ predictions | tojson }};
+    var labels = preds.map(function(p) { return p.Date; });
 
     renderPredictionChart("predictionChart", labels, [
         {
             label: "Open",
-            data: predictions.map(function(p) { return p.Open.toFixed(2); }),
+            data: preds.map(function(p) { return Math.round(p.Open * 100) / 100; }),
             borderColor: "#0d6efd",
             fill: false,
             tension: 0.3,
@@ -107,7 +107,7 @@
         },
         {
             label: "High",
-            data: predictions.map(function(p) { return p.High.toFixed(2); }),
+            data: preds.map(function(p) { return Math.round(p.High * 100) / 100; }),
             borderColor: "#198754",
             fill: false,
             tension: 0.3,
@@ -115,7 +115,7 @@
         },
         {
             label: "Low",
-            data: predictions.map(function(p) { return p.Low.toFixed(2); }),
+            data: preds.map(function(p) { return Math.round(p.Low * 100) / 100; }),
             borderColor: "#dc3545",
             fill: false,
             tension: 0.3,
@@ -123,7 +123,7 @@
         },
         {
             label: "Close",
-            data: predictions.map(function(p) { return p.Close.toFixed(2); }),
+            data: preds.map(function(p) { return Math.round(p.Close * 100) / 100; }),
             borderColor: "#0dcaf0",
             fill: false,
             tension: 0.3,
